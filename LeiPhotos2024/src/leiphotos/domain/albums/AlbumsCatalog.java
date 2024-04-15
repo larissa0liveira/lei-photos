@@ -2,6 +2,7 @@ package leiphotos.domain.albums;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,14 +18,12 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 	private MainLibrary library;
 	private List<Album> albums;
 	private List<String> albumName;
-    private int numAlbums;
 	
 
 	public AlbumsCatalog(MainLibrary mainLib) {
 		this.library = mainLib;
 		this.catalogo = new HashMap<>();
 		this.albums = new ArrayList<>();
-		this.numAlbums = 0;
 		this.albumName = new ArrayList<>();
 	}
 
@@ -37,7 +36,6 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 			this.albums.add(album);
 			this.albumName.add(albumName);
 			create = true;
-			this.numAlbums++;
 		}
 
 		
@@ -94,8 +92,11 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 
 	@Override
 	public Set<String> getAlbumsNames() {
+		Set<String> nameAlbums = new HashSet<>();
+		 
+		nameAlbums.addAll(this.albumName);
 
-		return null;
+		return nameAlbums;
 	}
 
 }

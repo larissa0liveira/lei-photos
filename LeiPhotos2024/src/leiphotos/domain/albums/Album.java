@@ -1,6 +1,6 @@
 package leiphotos.domain.albums;
 
-import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -10,74 +10,42 @@ import leiphotos.domain.facade.IPhoto;
 
 public class Album extends AAlbum {
 	
-	private int numPhotos;
-	private List<IPhoto> album;
-	private String name;
 
 	public Album(String name) {
-		this.numPhotos = 0; 
-		this.album = new ArrayList<IPhoto>();
-		this.name = name;
+		super(name);
 	}
 
 	@Override
 	public int numberOfPhotos() {
-		// TODO Auto-generated method stub
-		return this.numPhotos;
+		
+		return numberOfPhotos();
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return this.name;
+
+		return getName();
 	}
 
 	@Override
 	public List<IPhoto> getPhotos() {
-		// TODO Auto-generated method stub
-		return this.album;
+
+		return getPhotos();
 	}
 
 	@Override
 	public boolean addPhotos(Set<IPhoto> selectedPhotos) {
-		boolean add = false; 
-		int control = 0; 
-		Iterator<IPhoto> it = selectedPhotos.iterator();
-		
-		while(it.hasNext()) {
-			IPhoto photo = it.next();
-			this.album.add(photo);
-			numPhotos++;
-			control++;
-		}
-	    if(control == selectedPhotos.size()) {
-	    	add = true;
-	    }
-	    
-		return add;
+		return addPhotos(selectedPhotos);
 	}
 
 	@Override
 	public boolean removePhotos(Set<IPhoto> selectedPhotos) {
-		boolean remove = false; 
-		
-		Iterator<IPhoto> it = selectedPhotos.iterator();
-		
-		while(it.hasNext()) {
-			IPhoto photo = it.next();
-			if(this.album.contains(photo)) {
-				this.album.remove(photo);
-				numPhotos--;
-				remove = true;
-			}
-		}
-		
-		return remove;
+		return removePhotos(selectedPhotos);
 	}
 
 	@Override
 	public void processEvent(LibraryEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 

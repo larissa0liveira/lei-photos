@@ -19,4 +19,5 @@ public class PhotoAddedLibraryEvent extends LibraryEvent {
 		super(photo,lib);
 	}
 
+
 }

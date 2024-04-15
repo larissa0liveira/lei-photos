@@ -12,35 +12,32 @@ public interface IAlbum extends Listener<LibraryEvent>{
 	
 	/**
 	 * Retorna o número de fotos no álbum
-	 * @return
+	 * @return o número de fotos no álbum
 	 */
 	int numberOfPhotos();
 	
 	/**
 	 * Retorna o nome do álbum
-	 * @return
+	 * @return o nome do álbum
 	 */
 	String getName();
 	
 	/**
 	 * Retorna as fotos no álbum por uma dada ordem
-	 * @return
+	 * @return uma lista de fotos no álbum
 	 */
 	List<IPhoto> getPhotos();
 	
 	/**
-	 * Adiciona, se possível, um conjunto de 
-     * fotos da biblioteca ao álbum (retorna se a operação foi executada) 
-	 * @param selectedPhotos
-	 * @return
+	 * Adiciona, se possível, um conjunto de fotos da biblioteca ao álbum  
+	 * @param selectedPhotos o conjunto de fotos a serem adicionadas
+	 * @return true se as fotos foram adicionadas com sucesso, false caso contrário
 	 */
 	boolean addPhotos(Set<IPhoto> selectedPhotos);
 	/**
-	 * Remove, se possível, um conjunto de 
-     * fotos da biblioteca ao álbum (retorna se a operação foi executada; se alguma foto não existir no 
-     * álbum deve ser simplesmente ignorada) 
-	 * @param selectedPhotos
-	 * @return
+	 * Remove, se possível, um conjunto de fotos da biblioteca ao álbum 
+	 * @param selectedPhotos o conjunto de fotos a serem removidas
+	 * @return true se as fotos foram removidas com sucesso, false caso contrário
 	 */
 	boolean removePhotos(Set<IPhoto> selectedPhotos);
 

@@ -11,15 +11,23 @@ public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
 	
 	private int numPhotos;
 	
+	
+	public MainLibrary() {
+		super();
+		this.numPhotos = 0;
+		
+	}
+	
 
 	@Override
 	public int getNumberOfPhotos() {
-		// TODO Auto-generated method stub
+		
 		return this.numPhotos;
 	}
 
 	@Override
 	public boolean addPhoto(IPhoto photo) {
+	    
 		
 		return false;
 	}

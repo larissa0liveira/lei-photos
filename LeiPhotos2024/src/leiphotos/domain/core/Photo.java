@@ -3,6 +3,7 @@ package leiphotos.domain.core;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import leiphotos.domain.facade.GPSCoordinates;
 import leiphotos.domain.facade.IPhoto;
@@ -14,6 +15,8 @@ public class Photo implements IPhoto, RegExpMatchable {
 	private LocalDateTime date;
 	private PhotoMetadata meta;
 	private File path;
+	private boolean favorite;
+
     
 	
 	
@@ -22,60 +25,72 @@ public class Photo implements IPhoto, RegExpMatchable {
 		this.date = dateAddedLib;
 		this.meta = meta;
 		this.path = pathToFile;
+		this.favorite = false;
+	
 		
 	}
 	@Override
 	public String title() {
-		// TODO Auto-generated method stub
+
 		return this.title;
 	}
 
 	@Override
 	public LocalDateTime capturedDate() {
-		// TODO Auto-generated method stub
-		return this.date;
+
+		return this.meta.getDate();
 	}
 
 	@Override
 	public LocalDateTime addedDate() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return this.date;
 	}
 
 	@Override
 	public boolean isFavourite() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return this.favorite;
 	}
 
 	@Override
 	public void toggleFavourite() {
-		// TODO Auto-generated method stub
-		
+		this.favorite = !this.favorite;
+
 	}
 
-	@Override
+	@Override   
 	public Optional<? extends GPSCoordinates> getPlace() {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	      
+		return Optional.ofNullable(this.meta.getLoc());
+    
 	}
 
 	@Override
 	public long size() {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return this.path.length();
 	}
 
 	@Override
 	public File file() {
-		// TODO Auto-generated method stub
-		return this.file();
+
+		return this.path;
 	}
 
 	@Override
 	public boolean matches(String regexp) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean match = false;
+	    Pattern pattern = Pattern.compile(regexp);
+
+	    if(this.meta.matches(regexp) ||  
+	    		pattern.matcher(this.date.toString()).matches() || 
+	    		 	pattern.matcher(this.title.toString()).matches()||
+	    		 		pattern.matcher(this.path.toString()).matches()){
+	    					match = true;
+	
+	        }
+		return match;
 	}
 
 }

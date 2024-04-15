@@ -19,4 +19,6 @@ public class PhotoDeletedLibraryEvent extends LibraryEvent {
 		super(photo,lib);
 	}
 
+
+
 }
