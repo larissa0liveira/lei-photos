@@ -1,47 +1,63 @@
 package leiphotos.domain.core;
 
+
 import java.util.Collection;
+
 
 import leiphotos.domain.facade.IPhoto;
 
-//Class automatically generated so the code compiles
-//CHANGE ME
-public class RecentlyDeletedLibrary implements Library, TrashLibrary{
+
+public class RecentlyDeletedLibrary extends ATrashLibrary{
+	
+	
+	public RecentlyDeletedLibrary() {
+		 super();
+	}
 
 	@Override
 	public int getNumberOfPhotos() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+		return photosTrash.size();
 	}
 
 	@Override
 	public boolean addPhoto(IPhoto photo) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return photosTrash.add(photo);
 	}
 
 	@Override
 	public boolean deletePhoto(IPhoto photo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Collection<IPhoto> getPhotos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return photosTrash.remove(photo);
 	}
 
 	@Override
 	public Collection<IPhoto> getMatches(String regexp) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Collection<IPhoto> match = super.getPhotos();
+		 
+		 for (IPhoto photo : match) {
+	            if(photo.matches(regexp)) {
+	                match.add(photo);
+	            }
+	        }
+		
+		return match;
 	}
 
 	@Override
-	public boolean deleteAll() {
+	protected void clean() {
+		
+		
+		
+	}
+
+	@Override
+	protected boolean cleaningTime() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 }

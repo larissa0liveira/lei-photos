@@ -2,7 +2,7 @@ package leiphotos.domain.albums;
 
 
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,18 +50,10 @@ public class Album extends AAlbum {
 
 	@Override
 	public void processEvent(LibraryEvent e) {
-		Set<IPhoto> adds = new HashSet<>();
+	
 		Set<IPhoto> removes = new HashSet<>();
 		
-		if (e instanceof PhotoAddedLibraryEvent) {
-			PhotoAddedLibraryEvent event = (PhotoAddedLibraryEvent) e;
-			IPhoto addedPhoto = event.getPhoto();
-        
-        	if (this.album.contains(addedPhoto)) {
-        		adds.add(addedPhoto);
-        		super.addPhotos(adds);
-        	}
-        }else if(e instanceof PhotoDeletedLibraryEvent) {
+        if(e instanceof PhotoDeletedLibraryEvent) {
         		PhotoDeletedLibraryEvent event = (PhotoDeletedLibraryEvent) e;
         		IPhoto removedPhoto = event.getPhoto();
         		
@@ -69,10 +61,10 @@ public class Album extends AAlbum {
             		removes.add(removedPhoto);
             		super.removePhotos(removes);
             	}
-        }else if() {
-        	
         }
+        	
 	}
+	
  }
 
 

@@ -16,7 +16,6 @@ public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
 	private List<IPhoto> photos;
 
 	
-	
 	public MainLibrary() {
 		
 		this.photos = new ArrayList<>();
@@ -53,23 +52,22 @@ public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
 	@Override
 	public Collection<IPhoto> getPhotos() {
 		
-		return this.photos;
+		return new ArrayList<>(this.photos);
 	}
 
 	@Override
 	public Collection<IPhoto> getMatches(String regexp) {
-		Collection<IPhoto> match = new ArrayList<>();
-		
-		 Pattern pattern = Pattern.compile(regexp);
+		Collection<IPhoto> match = getPhotos();
 		 
-		 for (IPhoto photo : photos) {
-	            Matcher matcher = pattern.matcher(photo.toString());
-	            if (matcher.find()) {
+		 for (IPhoto photo : match) {
+	            if(photo.matches(regexp)) {
 	                match.add(photo);
 	            }
 	        }
+		
 		return match;
 	}
+
 	
 
 }
