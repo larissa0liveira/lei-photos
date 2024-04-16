@@ -12,7 +12,7 @@ public class GPSLocation implements RegExpMatchable, GPSCoordinates{
 	private double lon;
 	
 	
-	public GPSLocation(double lat, double lon, String descrip) {
+	public GPSLocation(double lon, double lat, String descrip) {
 		this.description = descrip;
 		this.lat = lat;
 		this.lon = lon;
@@ -20,14 +20,7 @@ public class GPSLocation implements RegExpMatchable, GPSCoordinates{
 	}
 	@Override
 	public boolean matches(String regexp) {
-		 boolean match = false;
-	     Pattern pattern = Pattern.compile(regexp);
-
-	     if (pattern.matcher(this.description).matches()) {
-	            match = true;
-	        }
-		
-		return match;
+		return Pattern.matches(regexp, description);
 	}
 	@Override
 	public double latitude() {

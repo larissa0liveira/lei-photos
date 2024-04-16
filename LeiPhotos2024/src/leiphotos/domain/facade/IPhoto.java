@@ -74,7 +74,7 @@ public interface IPhoto {
 	 *  
 	 * @param regexp the regular expression to be used
 	 * @requires regexp != null
-	 * @return whether some data of the song matches with the given regexp
+	 * @return whether some data of the photo matches with the given regexp
 	 */
 	boolean matches(String regexp);
 

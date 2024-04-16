@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import leiphotos.utils.RegExpMatchable;
 
-public class PhotoMetadata implements  RegExpMatchable{
+public class PhotoMetadata implements RegExpMatchable{
 	
 	
 	private LocalDateTime date;
@@ -18,7 +18,6 @@ public class PhotoMetadata implements  RegExpMatchable{
 		this.loc = loc;
 		this.cameraInfo = cameraInfo;
 		this.manufacturer = manufacturer;
-		
 	}
 
 	@Override
@@ -41,34 +40,17 @@ public class PhotoMetadata implements  RegExpMatchable{
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
-
 	public GPSLocation getLoc() {
 		return loc;
-	}
-
-	public void setLoc(GPSLocation loc) {
-		this.loc = loc;
 	}
 
 	public String getCameraInfo() {
 		return cameraInfo;
 	}
 
-	public void setCameraInfo(String cameraInfo) {
-		this.cameraInfo = cameraInfo;
-	}
-
 	public String getManufacturer() {
 		return manufacturer;
 	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
 
 
 }
