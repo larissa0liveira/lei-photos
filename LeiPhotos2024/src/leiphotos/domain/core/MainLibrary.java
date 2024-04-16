@@ -10,23 +10,17 @@ import leiphotos.domain.facade.IPhoto;
 import leiphotos.utils.AbsSubject;
 
 
-public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
-	
+public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 
 	private List<IPhoto> photos;
 
 	
-	
 	public MainLibrary() {
-		
 		this.photos = new ArrayList<>();
-		
 	}
-	
 
 	@Override
 	public int getNumberOfPhotos() {
-		
 		return this.photos.size();
 	}
 
@@ -37,7 +31,6 @@ public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
             emitEvent(new PhotoAddedLibraryEvent(photo, this));
         }
         return add;
-
 	}
 
 	@Override
@@ -47,29 +40,26 @@ public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
             emitEvent(new PhotoDeletedLibraryEvent(photo, this));
         }
         return remove;
-	
 	}
 
 	@Override
 	public Collection<IPhoto> getPhotos() {
-		
 		return this.photos;
 	}
 
 	@Override
 	public Collection<IPhoto> getMatches(String regexp) {
 		Collection<IPhoto> match = new ArrayList<>();
-		
-		 Pattern pattern = Pattern.compile(regexp);
 		 
 		 for (IPhoto photo : photos) {
-	            Matcher matcher = pattern.matcher(photo.toString());
-	            if (matcher.find()) {
-	                match.add(photo);
-	            }
-	        }
+			 if(photo.matches(regexp)) {
+				 match.add(photo);
+			 }
+		 }
 		return match;
 	}
+	
+	public String toString() {return "0";};
 	
 
 }
