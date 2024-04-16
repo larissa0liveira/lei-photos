@@ -78,5 +78,8 @@ public class Photo implements IPhoto, RegExpMatchable {
 	    
 		return match;
 	}
+	
+	//@Override
+	//public boolean equals(Object other) {};
 
 }

@@ -1,38 +1,68 @@
 package leiphotos.domain.core;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import leiphotos.domain.facade.IPhoto;
 
-public abstract class ATrashLibrary implements TrashLibrary{
+public abstract class ATrashLibrary implements TrashLibrary{	
+	
+	protected Set<IPhoto> photosTrash;
+	
+	protected ATrashLibrary() {
+		this.photosTrash = new TreeSet<>();
+	}
 	
 	protected abstract void clean();
+	
 	protected abstract boolean cleaningTime();
-	
-	protected List<IPhoto> photosTrash;
-	
-	 protected ATrashLibrary() {
-	        this.photosTrash = new ArrayList<>();
-	    }
 
-	    @Override
-	    public Collection<IPhoto> getPhotos() {
-	        if (cleaningTime()) {
-	            clean();
-	        }
-	        return new ArrayList<>(this.photosTrash);
-	    }
+	@Override
+	public Collection<IPhoto> getPhotos() {
+	    if (cleaningTime()) {
+	    	clean();
+        }
+        return new TreeSet<>(this.photosTrash);
+    }
 	    
-	    @Override
-		public boolean deleteAll() {
-	 
-	    	this.photosTrash.clear(); 
-	    	    
-	    	return photosTrash.isEmpty(); 
-	    	
-	    }
+	@Override
+	public boolean deleteAll() {
+    	this.photosTrash.clear();     
+    	return photosTrash.isEmpty(); 
+    }
+	
+	@Override
+	public int getNumberOfPhotos() {
+		return photosTrash.size();
+	}
+	
+	@Override
+	public boolean addPhoto(IPhoto photo) {
+		return photosTrash.add(photo);
+	}
+	
+	@Override
+	public boolean deletePhoto(IPhoto photo) {
+		return photosTrash.remove(photo);
+	}
+	
+	@Override
+	public Collection<IPhoto> getMatches(String regexp) {
+		Collection<IPhoto> match = new TreeSet<>();
+		 
+		for (IPhoto photo : photosTrash) {
+			if(photo.matches(regexp))
+				match.add(photo);
+		}
+		return match;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
 }
 	
 	

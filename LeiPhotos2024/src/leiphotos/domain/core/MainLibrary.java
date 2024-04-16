@@ -1,8 +1,8 @@
 package leiphotos.domain.core;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,11 +12,11 @@ import leiphotos.utils.AbsSubject;
 
 public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 
-	private List<IPhoto> photos;
+	private Set<IPhoto> photos;
 
 	
 	public MainLibrary() {
-		this.photos = new ArrayList<>();
+		this.photos = new TreeSet<>();
 	}
 
 	@Override
@@ -45,19 +45,17 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 	@Override
 	public Collection<IPhoto> getPhotos() {
 		
-		return new ArrayList<>(this.photos);
+		return new TreeSet<>(this.photos);
 	}
 
 	@Override
 	public Collection<IPhoto> getMatches(String regexp) {
-		Collection<IPhoto> match = new ArrayList<>();
+		Collection<IPhoto> match = new TreeSet<>();
 		 
 		 for (IPhoto photo : photos) {
-			 if(photo.matches(regexp)) {
+			 if(photo.matches(regexp))
 				 match.add(photo);
-			 }
 		 }
-
 		return match;
 	}
 

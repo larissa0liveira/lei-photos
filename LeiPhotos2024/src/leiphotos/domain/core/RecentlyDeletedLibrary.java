@@ -1,63 +1,54 @@
 package leiphotos.domain.core;
 
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
-
+import java.util.Map;
+import java.util.TreeMap;
 
 import leiphotos.domain.facade.IPhoto;
 
 
 public class RecentlyDeletedLibrary extends ATrashLibrary{
 	
+	private static final int INTERVAL = 60;
+	private LocalDateTime lastVerif;
+	private Map<IPhoto, LocalDateTime> deletionTimes;
 	
 	public RecentlyDeletedLibrary() {
 		 super();
-	}
-
-	@Override
-	public int getNumberOfPhotos() {
-	
-		return photosTrash.size();
-	}
-
-	@Override
-	public boolean addPhoto(IPhoto photo) {
-		
-		return photosTrash.add(photo);
-	}
-
-	@Override
-	public boolean deletePhoto(IPhoto photo) {
-		
-		return photosTrash.remove(photo);
-	}
-
-	@Override
-	public Collection<IPhoto> getMatches(String regexp) {
-		
-		Collection<IPhoto> match = super.getPhotos();
-		 
-		 for (IPhoto photo : match) {
-	            if(photo.matches(regexp)) {
-	                match.add(photo);
-	            }
-	        }
-		
-		return match;
+		 deletionTimes = new TreeMap<>();
 	}
 
 	@Override
 	protected void clean() {
-		
-		
-		
+		for(IPhoto)
 	}
 
 	@Override
 	protected boolean cleaningTime() {
-		// TODO Auto-generated method stub
-		return false;
+		return lastVerif.until(LocalDateTime.now(), ChronoUnit.DAYS) >= INTERVAL;
 	}
 
+	@Override
+	public boolean deleteAll() {
+    	deletionTimes.clear();
+		return (super.deleteAll() && deletionTimes.isEmpty());
+    }
+	
+	@Override
+	public boolean addPhoto(IPhoto photo) {
+		deletionTimes.put(photo, LocalDateTime.now());
+		return photosTrash.add(photo);
+	}
+	
+	@Override
+	public boolean deletePhoto(IPhoto photo) {
+		deletionTimes.remove(photo);
+		return photosTrash.remove(photo);
+	}
+	
+	
 
 }
