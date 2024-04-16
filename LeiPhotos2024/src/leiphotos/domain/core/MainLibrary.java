@@ -1,7 +1,10 @@
 package leiphotos.domain.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import leiphotos.domain.albums.Album;
 import leiphotos.domain.facade.IPhoto;
 import leiphotos.utils.AbsSubject;
 
@@ -9,12 +12,15 @@ import leiphotos.utils.AbsSubject;
 //CHANGE ME
 public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
 	
-	private int numPhotos;
+
+	private List<IPhoto> library;
+	private List<Album> albums;
 	
 	
 	public MainLibrary() {
 		super();
-		this.numPhotos = 0;
+		this.library = new ArrayList<>();
+		this.albums = new ArrayList<>();
 		
 	}
 	
@@ -22,11 +28,12 @@ public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
 	@Override
 	public int getNumberOfPhotos() {
 		
-		return this.numPhotos;
+		return this.library.size();
 	}
 
 	@Override
 	public boolean addPhoto(IPhoto photo) {
+
 	    
 		
 		return false;

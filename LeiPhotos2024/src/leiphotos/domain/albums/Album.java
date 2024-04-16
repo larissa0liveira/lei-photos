@@ -1,7 +1,7 @@
 package leiphotos.domain.albums;
 
 
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Set;
 
@@ -18,29 +18,29 @@ public class Album extends AAlbum {
 	@Override
 	public int numberOfPhotos() {
 		
-		return numberOfPhotos();
+		return super.numberOfPhotos();
 	}
 
 	@Override
 	public String getName() {
 
-		return getName();
+		return super.getName();
 	}
 
 	@Override
 	public List<IPhoto> getPhotos() {
 
-		return getPhotos();
+		return super.getPhotos();
 	}
 
 	@Override
 	public boolean addPhotos(Set<IPhoto> selectedPhotos) {
-		return addPhotos(selectedPhotos);
+		return super.addPhotos(selectedPhotos);
 	}
 
 	@Override
 	public boolean removePhotos(Set<IPhoto> selectedPhotos) {
-		return removePhotos(selectedPhotos);
+		return super.removePhotos(selectedPhotos);
 	}
 
 	@Override
