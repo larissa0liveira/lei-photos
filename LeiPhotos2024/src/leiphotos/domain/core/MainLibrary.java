@@ -44,7 +44,8 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 
 	@Override
 	public Collection<IPhoto> getPhotos() {
-		return this.photos;
+		
+		return new ArrayList<>(this.photos);
 	}
 
 	@Override
@@ -56,8 +57,10 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 				 match.add(photo);
 			 }
 		 }
+
 		return match;
 	}
+
 	
 	public String toString() {return "0";};
 	

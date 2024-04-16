@@ -35,4 +35,10 @@ public class MainLibraryView extends ALibraryView{
 		return null;
 	}
 
+	@Override
+	protected boolean photoPredicate(IPhoto photo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
