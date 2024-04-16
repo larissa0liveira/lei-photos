@@ -1,7 +1,6 @@
 package leiphotos.domain.albums;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -41,40 +40,21 @@ public abstract class AAlbum implements IAlbum{
 
 	@Override
 	public boolean addPhotos(Set<IPhoto> selectedPhotos) {
-		boolean add = false; 
-		int control = 0; 
-		Iterator<IPhoto> it = selectedPhotos.iterator();
+		int control = this.numPhotos; 
+		this.album.addAll(selectedPhotos);
+		numPhotos += selectedPhotos.size();
 		
-		while(it.hasNext()) {
-			IPhoto photo = it.next();
-			this.album.add(photo);
-			numPhotos++;
-			control++;
-		}
-	    if(control == selectedPhotos.size()) {
-	    	add = true;
-	    }
-	    
-		return add;
+		return this.numPhotos == control + selectedPhotos.size();
 		
 	}
 	
 	@Override
 	public boolean removePhotos(Set<IPhoto> selectedPhotos) {
-		boolean remove = false; 
-	
-		Iterator<IPhoto> it = selectedPhotos.iterator();
+		int control = this.numPhotos;
+		this.album.removeAll(selectedPhotos);
+		this.numPhotos -= selectedPhotos.size();
 		
-		while(it.hasNext()) {
-			IPhoto photo = it.next();
-			if(this.album.contains(photo)) {
-				this.album.remove(photo);
-				numPhotos--;
-				remove = true;
-			}
-		}
-		
-		return remove;
+		return this.numPhotos == control - selectedPhotos.size();
 		
 	}
 
