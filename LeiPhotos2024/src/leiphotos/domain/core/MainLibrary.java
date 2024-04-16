@@ -3,24 +3,23 @@ package leiphotos.domain.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import leiphotos.domain.albums.Album;
 import leiphotos.domain.facade.IPhoto;
 import leiphotos.utils.AbsSubject;
 
-//Class automatically generated so the code compiles
-//CHANGE ME
+
 public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
 	
 
-	private List<IPhoto> library;
-	private List<Album> albums;
+	private List<IPhoto> photos;
+
 	
 	
 	public MainLibrary() {
-		super();
-		this.library = new ArrayList<>();
-		this.albums = new ArrayList<>();
+		
+		this.photos = new ArrayList<>();
 		
 	}
 	
@@ -28,33 +27,48 @@ public class MainLibrary  extends AbsSubject<LibraryEvent> implements Library{
 	@Override
 	public int getNumberOfPhotos() {
 		
-		return this.library.size();
+		return this.photos.size();
 	}
 
 	@Override
 	public boolean addPhoto(IPhoto photo) {
+		boolean add = photos.add(photo);
+        if (add) {
+            emitEvent(new PhotoAddedLibraryEvent(photo, this));
+        }
+        return add;
 
-	    
-		
-		return false;
 	}
 
 	@Override
 	public boolean deletePhoto(IPhoto photo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean remove = photos.remove(photo);
+        if (remove) {
+            emitEvent(new PhotoDeletedLibraryEvent(photo, this));
+        }
+        return remove;
+	
 	}
 
 	@Override
 	public Collection<IPhoto> getPhotos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.photos;
 	}
 
 	@Override
 	public Collection<IPhoto> getMatches(String regexp) {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<IPhoto> match = new ArrayList<>();
+		
+		 Pattern pattern = Pattern.compile(regexp);
+		 
+		 for (IPhoto photo : photos) {
+	            Matcher matcher = pattern.matcher(photo.toString());
+	            if (matcher.find()) {
+	                match.add(photo);
+	            }
+	        }
+		return match;
 	}
 	
 
