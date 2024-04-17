@@ -26,7 +26,7 @@ public class PhotoMetadata implements RegExpMatchable{
 		
 	     Pattern pattern = Pattern.compile(regexp);
 
-	     if(pattern.matcher(this.loc.toString()).matches() ||
+	     if(loc.matches(regexp) ||
 	    		 pattern.matcher(this.date.toString()).matches() ||
 	    		 	pattern.matcher(this.cameraInfo).matches() ||
 	    		 		pattern.matcher(this.manufacturer).matches()) {

@@ -70,10 +70,10 @@ public class Photo implements IPhoto, RegExpMatchable {
 		boolean match = false;
 	    Pattern pattern = Pattern.compile(regexp);
 
-	    if (this.meta.matches(regexp) ||  
-	    	pattern.matcher(this.addedDate.toString()).matches() || 
-	    	pattern.matcher(this.title.toString()).matches()||
-	    	pattern.matcher(this.path.toString()).matches())
+	    if (meta.matches(regexp) ||  
+	    	pattern.matcher(addedDate.toString()).matches() || 
+	    	pattern.matcher(title).matches()||
+	    	pattern.matcher(path.toString()).matches())
 	    		match = true;
 	    
 		return match;

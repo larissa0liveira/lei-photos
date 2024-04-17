@@ -17,68 +17,58 @@ import leiphotos.domain.facade.IPhoto;
 public class AlbumsController implements IAlbumsController {
 	
 	private IAlbumsCatalog albumCatalog;
-	private IAlbum currentlyAlbum;
+	private IAlbum currentAlbum;
 
 	public AlbumsController(IAlbumsCatalog albumsCatalog) {
 		this.albumCatalog = albumsCatalog;
-		this.currentlyAlbum = new Album(null, this.albumCatalog.getLibrary());
-		
+		this.currentAlbum = null;
 	}
 	
 	@Override 
 	public boolean createAlbum(String name) {
-		
-		return this.albumCatalog.createAlbum(name);
+		return albumCatalog.createAlbum(name);
 	}
 
 	@Override
 	public void removeAlbum() {
-		if(this.currentlyAlbum != null) {
-			this.albumCatalog.removePhotos(this.currentlyAlbum.getName(),
-					new HashSet<>(this.currentlyAlbum.getPhotos()));
+		if(currentAlbum != null) {
+			albumCatalog.deleteAlbum(currentAlbum.getName());
 		}
-			
 	}
 
 	@Override
 	public void selectAlbum(String name) {
-		if(this.albumCatalog.containsAlbum(name)) {
-			this.currentlyAlbum = this.albumCatalog.getAlbum(name);
-			
+		if(albumCatalog.containsAlbum(name)) {
+			currentAlbum = albumCatalog.getAlbum(name);
 		}
-	
 	}
 
 	@Override
 	public void addPhotos(Set<IPhoto> selectedPhotos) {
-		if(this.currentlyAlbum != null) {
-			this.currentlyAlbum.addPhotos(selectedPhotos);
+		if(currentAlbum != null) {
+			currentAlbum.addPhotos(selectedPhotos);
 		}
-		
 	}
 
 	@Override
 	public void removePhotos(Set<IPhoto> selectedPhotos) {
-		if(this.currentlyAlbum != null) {
-			this.currentlyAlbum.removePhotos(selectedPhotos);
+		if(currentAlbum != null) {
+			currentAlbum.removePhotos(selectedPhotos);
 		}
-
 	}
 
 	@Override
 	public List<IPhoto> getPhotos() {
-		if(this.currentlyAlbum != null) {
-			return this.currentlyAlbum.getPhotos();
+		if(currentAlbum != null) {
+			return currentAlbum.getPhotos();
 		}
-		
 		return new ArrayList<>();
 	}
 
 	@Override
 	public Optional<String> getSelectedAlbum() {
-		if(this.currentlyAlbum != null) {
-			return Optional.of(this.currentlyAlbum.getName());
-					
+		if(currentAlbum != null) {
+			return Optional.of(currentAlbum.getName());	
 		}
 		return Optional.empty();
 	}
@@ -90,8 +80,7 @@ public class AlbumsController implements IAlbumsController {
 
 	@Override
 	public Set<String> getAlbumNames() {
-		
-		return this.albumCatalog.getAlbumsNames();
+		return albumCatalog.getAlbumsNames();
 	}
 
 

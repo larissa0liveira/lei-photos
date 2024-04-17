@@ -45,7 +45,7 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 	@Override
 	public Collection<IPhoto> getPhotos() {
 		
-		return new TreeSet<>(this.photos);
+		return this.photos;
 	}
 
 	@Override
