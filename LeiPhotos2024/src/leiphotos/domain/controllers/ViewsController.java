@@ -4,19 +4,16 @@ import java.util.Comparator;
 import java.util.List;
 
 import leiphotos.domain.core.views.IViewsCatalog;
-import leiphotos.domain.core.views.ViewsCatalog;
 import leiphotos.domain.facade.IPhoto;
 import leiphotos.domain.facade.IViewsController;
 import leiphotos.domain.facade.ViewsType;
 
 
-//Class automatically generated so the code compiles
-//CHANGE ME
 public class ViewsController implements IViewsController {
 	
-	ViewsCatalog views;
+	IViewsCatalog views;
 
-	public ViewsController(ViewsCatalog views) {
+	public ViewsController(IViewsCatalog views) {
 		this.views = views;
 	}
 

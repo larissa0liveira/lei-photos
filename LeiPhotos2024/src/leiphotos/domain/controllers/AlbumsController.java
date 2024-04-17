@@ -1,13 +1,11 @@
 package leiphotos.domain.controllers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import leiphotos.domain.albums.Album;
 import leiphotos.domain.albums.IAlbum;
 import leiphotos.domain.albums.IAlbumsCatalog;
 import leiphotos.domain.facade.IAlbumsController;

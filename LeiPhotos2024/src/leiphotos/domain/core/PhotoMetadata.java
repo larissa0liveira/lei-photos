@@ -1,15 +1,13 @@
 package leiphotos.domain.core;
 
 import java.time.LocalDateTime;
-import java.util.regex.Pattern;
 
 import leiphotos.utils.RegExpMatchable;
 
 public class PhotoMetadata implements RegExpMatchable{
 	
-	
-	private LocalDateTime date;
 	private GPSLocation loc;
+	private LocalDateTime date;
 	private String cameraInfo;
 	private String manufacturer;
 	
@@ -22,18 +20,11 @@ public class PhotoMetadata implements RegExpMatchable{
 
 	@Override
 	public boolean matches(String regexp) {
-		boolean match = false; 
-		
-	     Pattern pattern = Pattern.compile(regexp);
+	     return loc.matches(regexp) ||
+	    		date.toString().matches(regexp) ||
+	    		cameraInfo.matches(regexp) ||
+	    		manufacturer.matches(regexp);
 
-	     if(loc.matches(regexp) ||
-	    		 pattern.matcher(this.date.toString()).matches() ||
-	    		 	pattern.matcher(this.cameraInfo).matches() ||
-	    		 		pattern.matcher(this.manufacturer).matches()) {
-	            			match = true;
-	        }
-		
-		return match;
 	}
 
 	public LocalDateTime getDate() {
@@ -50,6 +41,11 @@ public class PhotoMetadata implements RegExpMatchable{
 
 	public String getManufacturer() {
 		return manufacturer;
+	}
+	
+	@Override
+	public String toString() {
+		return "["+loc+", "+date+", "+cameraInfo+", "+manufacturer+"]";
 	}
 
 
