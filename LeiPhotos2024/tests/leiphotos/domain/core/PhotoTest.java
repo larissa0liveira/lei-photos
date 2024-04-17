@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import leiphotos.domain.facade.GPSCoordinates;
+import leiphotos.domain.facade.IPhoto;
 
 class PhotoTest {
 
@@ -20,7 +21,13 @@ class PhotoTest {
 		File expectedFile = new File("test.jpg");
 		String expectedTitle = "Test Photo";
 		LocalDateTime expectedAddedDate = LocalDateTime.now();
-		//COMPLETE ME
+		
+		/**PhotoMetadata metadata = new PhotoMetadata(GPSLocation loc, expectedCapturedDate, String cameraInfo, String manufacturer);
+		
+		
+        IPhoto photo = new Photo(expectedTitle, expectedAddedDate, metadata, expectedFile);
+
+ */
 
 	}
 

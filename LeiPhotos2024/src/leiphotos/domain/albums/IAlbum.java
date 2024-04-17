@@ -7,6 +7,10 @@ import leiphotos.domain.core.LibraryEvent;
 import leiphotos.domain.facade.IPhoto;
 import leiphotos.utils.Listener;
 
+/**
+ * Uma interface que define um álbum de fotos.
+ * Um álbum contém uma coleção de fotos e fornece métodos para gerenciar essas fotos.
+ */
 public interface IAlbum extends Listener<LibraryEvent>{
 	
 	

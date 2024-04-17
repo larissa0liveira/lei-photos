@@ -6,6 +6,10 @@ import java.util.Set;
 import leiphotos.domain.core.MainLibrary;
 import leiphotos.domain.facade.IPhoto;
 
+/**
+ * Uma interface que define um catálogo de álbuns.
+ * Um catálogo de álbuns permite a criação, remoção e acesso a álbuns de fotos.
+ */
 public interface IAlbumsCatalog {
 	
 	
@@ -68,12 +72,19 @@ public interface IAlbumsCatalog {
     Set<String> getAlbumsNames();
     
     /**
+     *Retorna a biblioteca principal associada a este catálogo de álbuns.
+     * A biblioteca principal contém todas as fotos e recursos relacionados ao sistema.
      * 
+     * @return a biblioteca principal associada a este catálogo
      */
     MainLibrary getLibrary();
     
     /**
+     * Retorna o álbum com o nome especificado.
+     * Se não houver um álbum com o nome fornecido, retorna null. 
      * 
+     * @param name o nome do álbum a ser retornado
+     * @return o álbum com o nome especificado, ou null se não existir
      */
     IAlbum getAlbum(String name);
 

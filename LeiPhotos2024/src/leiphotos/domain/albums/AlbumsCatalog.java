@@ -80,7 +80,10 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 	}
 	@Override
 	public IAlbum getAlbum(String name) {
-		return this.catalogo.get(name);
+		if(this.catalogo.containsKey(name)) {
+			return this.catalogo.get(name);
+		}
+		return null;
 		
 	}
 
