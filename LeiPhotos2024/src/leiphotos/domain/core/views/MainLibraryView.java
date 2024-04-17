@@ -1,44 +1,72 @@
 package leiphotos.domain.core.views;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
+import leiphotos.domain.core.LibraryEvent;
+import leiphotos.domain.core.MainLibrary;
+import leiphotos.domain.core.PhotoAddedLibraryEvent;
+import leiphotos.domain.core.PhotoChangedLibraryEvent;
+import leiphotos.domain.core.PhotoDeletedLibraryEvent;
 import leiphotos.domain.facade.IPhoto;
+import leiphotos.utils.Listener;
 
-public class MainLibraryView extends ALibraryView{
+public class MainLibraryView extends ALibraryView implements Listener<LibraryEvent>{
 	
-	public MainLibraryView() {
-		
+	private List<IPhoto> cache;
+	
+	public MainLibraryView(MainLibrary lib, Predicate<IPhoto> p) {
+		super(lib, p);
+		cache = lib.getPhotos().stream().filter(p).sorted(comparator).toList();
 	}
-
+	
+	public MainLibraryView(MainLibrary lib, Predicate<IPhoto> p, Comparator<IPhoto> c) {
+		super(lib, p);
+		this.setComparator(c);
+	}
+	
 	@Override
 	public void setComparator(Comparator<IPhoto> c) {
-		// TODO Auto-generated method stub
-		
-	}
+        this.comparator = c;
+    }
 
-	@Override
+    @Override
 	public int numberOfPhotos() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+        return this.cache.size();
+    }
 
-	@Override
+    @Override
 	public List<IPhoto> getPhotos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+    	 return new ArrayList<>(cache);
+    }
+    
+    @Override
 	public List<IPhoto> getMatches(String regexp) {
-		// TODO Auto-generated method stub
-		return null;
+    	List<IPhoto> matches = this.cache;
+    	
+    	for(IPhoto photo : matches) {
+    		if(!photo.matches(regexp))
+    			matches.remove(photo);
+    	}
+    	return matches;
 	}
 
 	@Override
-	protected boolean photoPredicate(IPhoto photo) {
-		// TODO Auto-generated method stub
-		return false;
+	public void processEvent(LibraryEvent e) {
+		if(e instanceof PhotoAddedLibraryEvent) {
+			cache.add(e.getPhoto());
+		} else if(e instanceof PhotoChangedLibraryEvent) {
+			for(IPhoto photo : cache) {
+				if(photo.equals(e.getPhoto()))
+					//fazer alguma coisa
+					return;
+			}
+		} else if(e instanceof PhotoDeletedLibraryEvent){
+			cache.remove(e.getPhoto());
+		}
+		
 	}
 
 }

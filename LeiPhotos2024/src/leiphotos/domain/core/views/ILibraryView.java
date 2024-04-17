@@ -6,7 +6,10 @@ import java.util.List;
 import leiphotos.domain.facade.IPhoto;
 
 
-
+/**
+ * Representa vistas de bibliotecas de fotos
+ *
+ */
 public interface ILibraryView {
 
     /**

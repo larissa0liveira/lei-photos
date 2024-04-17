@@ -5,12 +5,8 @@ import leiphotos.domain.facade.ViewsType;
 //Class automatically generated so the code compiles
 //CHANGE ME
 
-public class IViewsCatalog implements IViewCatalog{
+public interface IViewsCatalog {
 
-	@Override
-	public ILibraryView getView(ViewsType t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ILibraryView getView(ViewsType t);
 
 }

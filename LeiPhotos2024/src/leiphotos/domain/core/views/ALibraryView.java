@@ -3,7 +3,7 @@ package leiphotos.domain.core.views;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-
+import java.util.function.Predicate;
 
 import leiphotos.domain.core.Library;
 import leiphotos.domain.facade.IPhoto;
@@ -11,51 +11,39 @@ import leiphotos.domain.facade.IPhoto;
 public abstract class ALibraryView implements ILibraryView{
 	
 	protected Library library;
-	protected Comparator<IPhoto> comp;
+	protected Comparator<IPhoto> comparator;
+	protected Predicate<IPhoto> predicate;
+	
+	protected ALibraryView(Library lib, Predicate<IPhoto> pred) {
+		this.library = lib;
+		this.predicate = pred;
+		this.comparator = (photo1, photo2) -> (int)(photo1.size() - photo2.size());
+	}
 	
 	@Override
 	public void setComparator(Comparator<IPhoto> c) {
-        this.comp = c;
+        this.comparator = c;
     }
 
-    
-    protected abstract boolean photoPredicate(IPhoto photo);
-
-    
     @Override
 	public int numberOfPhotos() {
-        int count = 0;
-        for (IPhoto photo : library.getPhotos()) {
-            if (photoPredicate(photo)) {
-                count++;
-            }
-        }
-        return count;
+        return this.getPhotos().size();
     }
 
     @Override
 	public List<IPhoto> getPhotos() {
-    	
-    	 Collection<IPhoto> photos = library.getPhotos();
-         
-    	 photos.removeIf(photo -> !photoPredicate(photo));
-    	 
-    	 return photos.stream().toList(); // ou photos.parallelStream().toList();
-        
+    	 return library.getPhotos().stream().filter(predicate).sorted(comparator).toList();
     }
     
     @Override
 	public List<IPhoto> getMatches(String regexp) {
+    	List<IPhoto> matches = this.getPhotos();
     	
-    	List<IPhoto> match = getPhotos();
-		 
-		 for (IPhoto photo : match) {
-	            if(photo.matches(regexp)) {
-	                match.add(photo);
-	            }
-	        }
-		
-		return match;
+    	for(IPhoto photo : matches) {
+    		if(!photo.matches(regexp))
+    			matches.remove(photo);
+    	}
+    	return matches;
 	}
 
     	
