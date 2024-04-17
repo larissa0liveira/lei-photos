@@ -1,102 +1,77 @@
 package leiphotos.domain.albums;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import leiphotos.domain.core.MainLibrary;
 import leiphotos.domain.facade.IPhoto;
 
-//Class automatically generated so the code compiles
-//CHANGE ME
 public class AlbumsCatalog implements IAlbumsCatalog {
 	
-	private Map<MainLibrary,Album> catalogo; 
+	private Map<String,IAlbum> catalogo; 
 	private MainLibrary library;
-	private List<Album> albums;
-	private List<String> albumName;
 	
 
 	public AlbumsCatalog(MainLibrary mainLib) {
 		this.library = mainLib;
-		this.catalogo = new HashMap<>();
-		this.albums = new ArrayList<>();
-		this.albumName = new ArrayList<>();
+		this.catalogo = new TreeMap<>();
 	}
 
 	@Override
 	public boolean createAlbum(String albumName) {
-		boolean create = false;
+		IAlbum album = new Album(albumName, library);
 		if(!containsAlbum(albumName)) {
-			Album album = new Album(albumName);
-			this.catalogo.put(this.library, album);
-			this.albums.add(album);
-			this.albumName.add(albumName);
-			create = true;
+			catalogo.put(albumName, album);
+			return true;
 		}
+		return false;
 
-		
-		return create;
 	}
 
 	@Override
 	public boolean deleteAlbum(String albumName) {
-		 boolean delete = false;
-		 if(containsAlbum(albumName)) {
-				 this.catalogo.remove(this.library, this.albums.get(this.albumName.indexOf(albumName)));
-				 delete = true;
-			 
-			 
-		 }
-		return delete;
+		if(containsAlbum(albumName)) {
+			catalogo.remove(albumName);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public boolean containsAlbum(String albumName) {
-		
-		return this.albumName.contains(albumName);
+		return this.catalogo.containsKey(albumName);
 	}
 
 	@Override
 	public boolean addPhotos(String albumName, Set<IPhoto> selectedPhotos) {
-		boolean add = false;
 		if(containsAlbum(albumName)) {
-			this.catalogo.getOrDefault(this.library, 
-					this.albums.get(this.albumName.indexOf(albumName))).addPhotos(selectedPhotos);
-			add = true;
+			return catalogo.get(albumName).addPhotos(selectedPhotos);
 		}
-		return add;
+		return false;
 	}
 
 	@Override
 	public boolean removePhotos(String albumName, Set<IPhoto> selectedPhotos) {
-		boolean remove = false;
 		if(containsAlbum(albumName)) {
-			this.catalogo.getOrDefault(this.library, 
-					this.albums.get(this.albumName.indexOf(albumName))).removePhotos(selectedPhotos);
-			remove = true;
+			return catalogo.get(albumName).removePhotos(selectedPhotos);
 		}
-	
-		
-		return remove;
+		return false;
 	}
 
 	@Override
 	public List<IPhoto> getPhotos(String albumName) {
-	
-		return this.albums.get(this.albumName.indexOf(albumName)).getPhotos();
+		if(containsAlbum(albumName)) {
+			return catalogo.get(albumName).getPhotos();
+		}
+		return new ArrayList<>();
 	}
 
 	@Override
 	public Set<String> getAlbumsNames() {
-		Set<String> nameAlbums = new HashSet<>();
-		 
-		nameAlbums.addAll(this.albumName);
-
-		return nameAlbums;
+		return catalogo.keySet();
 	}
 
 }

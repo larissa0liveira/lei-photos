@@ -40,5 +40,13 @@ public interface IAlbum extends Listener<LibraryEvent>{
 	 * @return true se as fotos foram removidas com sucesso, false caso contrário
 	 */
 	boolean removePhotos(Set<IPhoto> selectedPhotos);
+	
+	/**
+	 * Process the given event 
+	 * 
+	 * @param e the event to process
+	 */
+	@Override
+	public void processEvent(LibraryEvent e);
 
 }

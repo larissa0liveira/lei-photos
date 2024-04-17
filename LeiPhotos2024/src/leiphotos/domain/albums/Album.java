@@ -1,68 +1,11 @@
 package leiphotos.domain.albums;
 
-
-
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import leiphotos.domain.core.LibraryEvent;
-import leiphotos.domain.core.PhotoAddedLibraryEvent;
-import leiphotos.domain.core.PhotoChangedLibraryEvent;
-import leiphotos.domain.core.PhotoDeletedLibraryEvent;
-import leiphotos.domain.facade.IPhoto;
+import leiphotos.domain.core.MainLibrary;
 
 public class Album extends AAlbum {
 	
-
-	public Album(String name) {
-		super(name);
-	}
-
-	@Override
-	public int numberOfPhotos() {
-		
-		return super.numberOfPhotos();
-	}
-
-	@Override
-	public String getName() {
-
-		return super.getName();
-	}
-
-	@Override
-	public List<IPhoto> getPhotos() {
-
-		return super.getPhotos();
-	}
-
-	@Override
-	public boolean addPhotos(Set<IPhoto> selectedPhotos) {
-		return super.addPhotos(selectedPhotos);
-	}
-
-	@Override
-	public boolean removePhotos(Set<IPhoto> selectedPhotos) {
-		return super.removePhotos(selectedPhotos);
-	}
-
-	@Override
-	public void processEvent(LibraryEvent e) {
-	
-		Set<IPhoto> removes = new HashSet<>();
-		
-        if(e instanceof PhotoDeletedLibraryEvent) {
-        		PhotoDeletedLibraryEvent event = (PhotoDeletedLibraryEvent) e;
-        		IPhoto removedPhoto = event.getPhoto();
-        		
-        		if (this.album.contains(removedPhoto)) {
-            		removes.add(removedPhoto);
-            		super.removePhotos(removes);
-            	}
-        }
-        	
+	public Album(String name, MainLibrary library) {
+		super(name, library);
 	}
 	
  }

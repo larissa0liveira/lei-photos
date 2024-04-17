@@ -20,11 +20,13 @@ public class MainLibraryView extends ALibraryView implements Listener<LibraryEve
 	public MainLibraryView(MainLibrary lib, Predicate<IPhoto> p) {
 		super(lib, p);
 		cache = lib.getPhotos().stream().filter(p).sorted(comparator).toList();
+		lib.registerListener(this);
 	}
 	
 	public MainLibraryView(MainLibrary lib, Predicate<IPhoto> p, Comparator<IPhoto> c) {
 		super(lib, p);
 		this.setComparator(c);
+		lib.registerListener(this);
 	}
 	
 	@Override
