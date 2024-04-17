@@ -73,5 +73,18 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 	public Set<String> getAlbumsNames() {
 		return catalogo.keySet();
 	}
+	
+	@Override
+	public MainLibrary getLibrary() {
+		return this.library;
+	}
+	@Override
+	public IAlbum getAlbum(String name) {
+		return this.catalogo.get(name);
+		
+	}
+
+
+	
 
 }

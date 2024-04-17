@@ -3,6 +3,7 @@ package leiphotos.domain.albums;
 import java.util.List;
 import java.util.Set;
 
+import leiphotos.domain.core.MainLibrary;
 import leiphotos.domain.facade.IPhoto;
 
 public interface IAlbumsCatalog {
@@ -65,7 +66,16 @@ public interface IAlbumsCatalog {
      * @return um conjunto contendo os nomes dos álbuns existentes
      */
     Set<String> getAlbumsNames();
-
+    
+    /**
+     * 
+     */
+    MainLibrary getLibrary();
+    
+    /**
+     * 
+     */
+    IAlbum getAlbum(String name);
 
 
 }
