@@ -14,9 +14,9 @@ import leiphotos.domain.facade.ViewsType;
 //CHANGE ME
 public class ViewsController implements IViewsController {
 	
-	ViewsCatalog views;
+	IViewsCatalog views;
 
-	public ViewsController(ViewsCatalog views) {
+	public ViewsController(IViewsCatalog views) {
 		this.views = views;
 	}
 

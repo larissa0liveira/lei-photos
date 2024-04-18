@@ -2,6 +2,7 @@ package leiphotos.domain.core;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -77,9 +78,26 @@ public class Photo implements IPhoto, RegExpMatchable {
 	    		match = true;
 	    
 		return match;
+		
 	}
 	
-	//@Override
-	//public boolean equals(Object other) {};
+	@Override
+	public boolean equals(Object other) {
+			if (this == other) {
+		        return true; 
+		    }
+		    if (other == null || getClass() != other.getClass()) {
+		        return false; 
+		    }
+		    Photo photo = (Photo) other; 
+
+		    return Objects.equals(path, photo.path) &&
+		    	   Objects.equals(title, photo.title) &&
+		           Objects.equals(addedDate, photo.addedDate) &&
+		           Objects.equals(meta, photo.meta);
+		
+	}
+		
+		
 
 }
