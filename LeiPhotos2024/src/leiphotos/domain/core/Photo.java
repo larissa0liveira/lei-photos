@@ -4,7 +4,6 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import leiphotos.domain.facade.GPSCoordinates;
 import leiphotos.domain.facade.IPhoto;
@@ -68,16 +67,11 @@ public class Photo implements IPhoto, RegExpMatchable {
 
 	@Override
 	public boolean matches(String regexp) {
-		boolean match = false;
-	    Pattern pattern = Pattern.compile(regexp);
 
-	    if (meta.matches(regexp) ||  
-	    	pattern.matcher(addedDate.toString()).matches() || 
-	    	pattern.matcher(title).matches()||
-	    	pattern.matcher(path.toString()).matches())
-	    		match = true;
-	    
-		return match;
+	    return 	meta.matches(regexp) ||  
+		addedDate.toString().matches(regexp) || 
+		title.matches(regexp)||
+		path.toString().matches(regexp);
 		
 	}
 	
@@ -94,7 +88,11 @@ public class Photo implements IPhoto, RegExpMatchable {
 		    return Objects.equals(path, photo.path);
 		
 	}
-		
-		
+	
+	@Override
+	public String toString() {
+		return "File:"+path+"\nTitle:"+title+" Added:"+addedDate+" Size:"+size()+"\n"+meta+"\n";
+	}
+
 
 }

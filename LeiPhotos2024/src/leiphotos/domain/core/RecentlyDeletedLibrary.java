@@ -4,9 +4,8 @@ package leiphotos.domain.core;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import leiphotos.domain.facade.IPhoto;
@@ -14,15 +13,15 @@ import leiphotos.domain.facade.IPhoto;
 
 public class RecentlyDeletedLibrary extends ATrashLibrary{
 	
-	private static final int INTERVAL = 30; //tempo de intervalo entre uma verificação e outra
-	private static final int DURATION = 60; //duração maxima de uma foto na lixeira
-	private static final ChronoUnit TIMEUNIT = ChronoUnit.DAYS;
+	private static final int INTERVAL = 5; //tempo de intervalo entre uma verificação e outra
+	private static final int DURATION = 15; //duração maxima de uma foto na lixeira
+	private static final ChronoUnit TIMEUNIT = ChronoUnit.SECONDS;
 	private LocalDateTime lastVerif;
 	private Map<IPhoto, LocalDateTime> deletionTimes;
 	
 	public RecentlyDeletedLibrary() {
 		 super();
-		 deletionTimes = new TreeMap<>();
+		 deletionTimes = new HashMap<>();
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package leiphotos.domain.albums;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import leiphotos.domain.core.LibraryEvent;
 import leiphotos.domain.core.MainLibrary;
@@ -13,11 +12,11 @@ import leiphotos.domain.facade.IPhoto;
 public abstract class AAlbum implements IAlbum{
 	
 	protected String name;
-	protected Set<IPhoto> album;
+	protected List<IPhoto> album;
 	protected MainLibrary library;
 	
 	protected AAlbum(String name, MainLibrary library) {
-		this.album = new TreeSet<>();
+		this.album = new ArrayList<>();
 		this.name = name;
 		this.library = library;
 		library.registerListener(this);
@@ -35,7 +34,7 @@ public abstract class AAlbum implements IAlbum{
 	
 	@Override
 	public List<IPhoto> getPhotos(){
-		return new ArrayList<>(album);
+		return album;
 	}
 
 	@Override

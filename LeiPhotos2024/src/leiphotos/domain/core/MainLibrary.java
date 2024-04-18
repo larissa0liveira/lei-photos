@@ -1,10 +1,9 @@
 package leiphotos.domain.core;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import leiphotos.domain.facade.IPhoto;
 import leiphotos.utils.AbsSubject;
@@ -16,7 +15,7 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 
 	
 	public MainLibrary() {
-		this.photos = new TreeSet<>();
+		this.photos = new HashSet<>();
 	}
 
 	@Override
@@ -45,7 +44,7 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 	@Override
 	public Collection<IPhoto> getPhotos() {
 		
-		return this.photos;
+		return photos;
 	}
 
 	@Override
@@ -60,7 +59,13 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 	}
 
 	
-	public String toString() {return "0";};
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for(IPhoto photo : photos) {
+			sb.append(photo);
+		}
+		return sb.toString();
+	}
 	
-
 }

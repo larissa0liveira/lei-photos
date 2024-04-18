@@ -30,7 +30,7 @@ public class LibrariesController implements ILibrariesController {
 		}catch (Exception e) {
 			System.out.println("Erro ao criar foto - LibrariesController.importPhoto()");
 		}
-		if(mainLib.addPhoto(photo))
+		if(photo != null && mainLib.addPhoto(photo))
 			return Optional.of(photo);
 		return Optional.empty();
 	}

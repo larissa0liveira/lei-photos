@@ -1,9 +1,9 @@
 package leiphotos.domain.core.views;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import leiphotos.domain.core.Library;
 import leiphotos.domain.facade.IPhoto;
@@ -32,7 +32,7 @@ public abstract class ALibraryView implements ILibraryView{
 
     @Override
 	public List<IPhoto> getPhotos() {
-    	 return library.getPhotos().stream().filter(predicate).sorted(comparator).toList();
+    	 return library.getPhotos().stream().filter(predicate).sorted(comparator).collect(Collectors.toList());
     }
     
     @Override
@@ -46,7 +46,14 @@ public abstract class ALibraryView implements ILibraryView{
     	return matches;
 	}
 
-    	
+	@Override
+	public String toString() {
+    	StringBuilder sb = new StringBuilder();
+		for(IPhoto photo : getPhotos()) {
+			sb.append(photo);
+		}
+		return sb.toString();
+    }
     
 
 }

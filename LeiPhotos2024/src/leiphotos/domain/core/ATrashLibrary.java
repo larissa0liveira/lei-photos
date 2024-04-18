@@ -1,17 +1,18 @@
 package leiphotos.domain.core;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
 import leiphotos.domain.facade.IPhoto;
 
 public abstract class ATrashLibrary implements TrashLibrary{	
-	
+
 	protected Set<IPhoto> photosTrash;
 	
 	protected ATrashLibrary() {
-		this.photosTrash = new TreeSet<>();
+		this.photosTrash = new HashSet<>();
 	}
 	
 	protected abstract void clean();
@@ -23,7 +24,7 @@ public abstract class ATrashLibrary implements TrashLibrary{
 	    if (cleaningTime()) {
 	    	clean();
         }
-        return new TreeSet<>(this.photosTrash);
+        return photosTrash;
     }
 	    
 	@Override
@@ -60,8 +61,11 @@ public abstract class ATrashLibrary implements TrashLibrary{
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		StringBuilder sb = new StringBuilder();
+		for(IPhoto photo : photosTrash) {
+			sb.append(photo);
+		}
+		return sb.toString();
 	}
 }
 	

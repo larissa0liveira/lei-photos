@@ -1,6 +1,5 @@
 package leiphotos.domain.core;
 
-import java.util.regex.Pattern;
 
 import leiphotos.domain.facade.GPSCoordinates;
 import leiphotos.utils.RegExpMatchable;
@@ -20,7 +19,7 @@ public class GPSLocation implements RegExpMatchable, GPSCoordinates{
 	}
 	@Override
 	public boolean matches(String regexp) {
-		return Pattern.matches(regexp, description);
+		return description.matches(regexp);
 	}
 	@Override
 	public double latitude() {

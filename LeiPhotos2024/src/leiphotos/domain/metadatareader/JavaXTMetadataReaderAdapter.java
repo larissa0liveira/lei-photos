@@ -36,8 +36,20 @@ public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
 
 	@Override
 	public LocalDateTime getDate() {
+		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss", Locale.ENGLISH);
-        return LocalDateTime.parse(reader.getDate(), formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(reader.getDate(), formatter);
+        return dateTime;
+        
+//		LocalDateTime date = null;
+//	    try {
+//	        String dateString = reader.getDate();
+//	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//	        date = LocalDateTime.parse(dateString, formatter);
+//	    } catch (Exception e) {
+//	        System.out.println("Erro ao converter data para LocalDateTime");
+//	    }
+//	    return date;
 	}
 
 	@Override
@@ -49,5 +61,6 @@ public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
 	public double[] getGpsLocation() {
 		return reader.getGPS();
 	}
+
 
 }

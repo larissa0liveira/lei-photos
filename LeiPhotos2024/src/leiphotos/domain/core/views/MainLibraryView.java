@@ -1,6 +1,5 @@
 package leiphotos.domain.core.views;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -19,19 +18,18 @@ public class MainLibraryView extends ALibraryView implements Listener<LibraryEve
 	
 	public MainLibraryView(MainLibrary lib, Predicate<IPhoto> p) {
 		super(lib, p);
-		cache = lib.getPhotos().stream().filter(p).sorted(comparator).toList();
+		updateCache();
 		lib.registerListener(this);
 	}
 	
-	public MainLibraryView(MainLibrary lib, Predicate<IPhoto> p, Comparator<IPhoto> c) {
-		super(lib, p);
-		this.setComparator(c);
-		lib.registerListener(this);
+	public void updateCache() {
+		cache = super.getPhotos();
 	}
 	
 	@Override
 	public void setComparator(Comparator<IPhoto> c) {
-        this.comparator = c;
+        super.setComparator(c);
+        cache.sort(c);
     }
 
     @Override
@@ -41,7 +39,7 @@ public class MainLibraryView extends ALibraryView implements Listener<LibraryEve
 
     @Override
 	public List<IPhoto> getPhotos() {
-    	 return new ArrayList<>(cache);
+    	 return cache;
     }
     
     @Override
@@ -58,13 +56,10 @@ public class MainLibraryView extends ALibraryView implements Listener<LibraryEve
 	@Override
 	public void processEvent(LibraryEvent e) {
 		if(e instanceof PhotoAddedLibraryEvent) {
-			cache.add(e.getPhoto());
+			if(predicate.test(e.getPhoto()))
+				cache.add(e.getPhoto());
 		} else if(e instanceof PhotoChangedLibraryEvent) {
-			for(IPhoto photo : cache) {
-				if(photo.equals(e.getPhoto()))
-					//fazer alguma coisa
-					return;
-			}
+			updateCache();
 		} else if(e instanceof PhotoDeletedLibraryEvent){
 			cache.remove(e.getPhoto());
 		}
