@@ -35,10 +35,7 @@ public abstract class AAlbum implements IAlbum{
 	
 	@Override
 	public List<IPhoto> getPhotos(){
-		Comparator<IPhoto> comp = (photo1, photo2) -> photo2.title().compareTo(photo1.title());
-		List<IPhoto> copy = new ArrayList<>(album);
-		copy.sort(comp);
-		return copy;
+		return new ArrayList<>(album);
 	}
 
 	@Override

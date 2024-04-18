@@ -65,6 +65,9 @@ public class RecentlyDeletedLibrary extends ATrashLibrary{
 		return super.deletePhoto(photo);
 	}
 	
+	public void setLastVerificationTime(LocalDateTime lastVerif) {
+	    this.lastVerif = lastVerif;
+	}
 	
 
 }

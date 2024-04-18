@@ -6,6 +6,7 @@ import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 import leiphotos.domain.facade.GPSCoordinates;
@@ -73,22 +74,22 @@ public class Photo implements IPhoto, RegExpMatchable {
 	    return  addedDate.toString().matches(regexp) || 
 	    		title.matches(regexp)||
 	    		path.toString().matches(regexp);
-	    		//meta.matches(regexp);
 	}
 	
-//	@Override
-//	public boolean equals(Object other) {
-//		if(this == other)
-//			return true;
-//		if(other == null)
-//			return false;
-//		if(other instanceof Photo p)
-//			return this.title.equals(p.title) &&
-//					this.meta.equals(p.meta);
-//		else
-//			return false;
-//	};
-	
+	@Override
+	public boolean equals(Object other) {
+			if (this == other) {
+		        return true; 
+		    }
+		    if (other == null || getClass() != other.getClass()) {
+		        return false; 
+		    }
+		    Photo photo = (Photo) other; 
+
+		    return Objects.equals(path, photo.path);
+		
+	}
+
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -101,5 +102,6 @@ public class Photo implements IPhoto, RegExpMatchable {
 				meta + " "+
 				(favorite ? "FAV\n" : "\n");
 	}
+
 
 }
