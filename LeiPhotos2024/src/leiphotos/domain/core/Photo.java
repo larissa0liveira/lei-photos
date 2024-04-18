@@ -91,10 +91,7 @@ public class Photo implements IPhoto, RegExpMatchable {
 		    }
 		    Photo photo = (Photo) other; 
 
-		    return Objects.equals(path, photo.path) &&
-		    	   Objects.equals(title, photo.title) &&
-		           Objects.equals(addedDate, photo.addedDate) &&
-		           Objects.equals(meta, photo.meta);
+		    return Objects.equals(path, photo.path);
 		
 	}
 		
