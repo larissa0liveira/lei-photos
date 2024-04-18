@@ -31,5 +31,13 @@ public class ViewsController implements IViewsController {
 	public void setSortingCriteria(ViewsType v, Comparator<IPhoto> criteria) {
 		views.getView(v).setComparator(criteria);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("***** VIEWS *****\n");
+		sb.append(views);
+		return sb.toString();
+	}
 
 }

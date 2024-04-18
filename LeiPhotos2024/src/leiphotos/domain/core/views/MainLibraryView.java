@@ -1,5 +1,6 @@
 package leiphotos.domain.core.views;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -44,11 +45,11 @@ public class MainLibraryView extends ALibraryView implements Listener<LibraryEve
     
     @Override
 	public List<IPhoto> getMatches(String regexp) {
-    	List<IPhoto> matches = this.cache;
+    	List<IPhoto> matches = new ArrayList<>();
     	
-    	for(IPhoto photo : matches) {
-    		if(!photo.matches(regexp))
-    			matches.remove(photo);
+    	for(IPhoto photo : cache) {
+    		if(photo.matches(regexp))
+    			matches.add(photo);
     	}
     	return matches;
 	}
@@ -58,10 +59,12 @@ public class MainLibraryView extends ALibraryView implements Listener<LibraryEve
 		if(e instanceof PhotoAddedLibraryEvent) {
 			if(predicate.test(e.getPhoto()))
 				cache.add(e.getPhoto());
+				cache.sort(comparator);
 		} else if(e instanceof PhotoChangedLibraryEvent) {
 			updateCache();
 		} else if(e instanceof PhotoDeletedLibraryEvent){
 			cache.remove(e.getPhoto());
+			cache.sort(comparator);
 		}
 		
 	}

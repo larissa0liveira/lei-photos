@@ -31,5 +31,11 @@ public class GPSLocation implements RegExpMatchable, GPSCoordinates{
 
 		return this.lon;
 	}
+	
+	public String toString() {
+		return "{Lat:"+String.format("%.2f", lat)+" "+
+				"Long:"+String.format("%.2f", lon)+" "+
+				"Desc:}";
+	}
 
 }

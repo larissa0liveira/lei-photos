@@ -1,7 +1,8 @@
 package leiphotos.domain.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -11,11 +12,11 @@ import leiphotos.utils.AbsSubject;
 
 public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 
-	private Set<IPhoto> photos;
+	private List<IPhoto> photos;
 
 	
 	public MainLibrary() {
-		this.photos = new HashSet<>();
+		this.photos = new ArrayList<>();
 	}
 
 	@Override
@@ -43,8 +44,7 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 
 	@Override
 	public Collection<IPhoto> getPhotos() {
-		
-		return photos;
+		return new ArrayList<>(photos);
 	}
 
 	@Override
@@ -57,11 +57,21 @@ public class MainLibrary extends AbsSubject<LibraryEvent> implements Library{
 		 }
 		return match;
 	}
+	
+	public void toggleFavourites(Set<IPhoto> selectedPhotos) {
+		for(IPhoto photo : photos) {
+			if(selectedPhotos.contains(photo)) {
+				photo.toggleFavourite();
+				emitEvent(new PhotoChangedLibraryEvent(photo, this));
+			}
+		}
+	}
 
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("***** MAIN PHOTO LIBRARY: "+ getNumberOfPhotos() +" photos *****\n");
 		for(IPhoto photo : photos) {
 			sb.append(photo);
 		}

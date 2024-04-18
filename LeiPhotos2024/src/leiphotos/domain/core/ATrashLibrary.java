@@ -1,18 +1,18 @@
 package leiphotos.domain.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.TreeSet;
 
 import leiphotos.domain.facade.IPhoto;
 
 public abstract class ATrashLibrary implements TrashLibrary{	
 
-	protected Set<IPhoto> photosTrash;
+	protected List<IPhoto> photosTrash;
 	
 	protected ATrashLibrary() {
-		this.photosTrash = new HashSet<>();
+		this.photosTrash = new ArrayList<>();
 	}
 	
 	protected abstract void clean();
@@ -24,7 +24,7 @@ public abstract class ATrashLibrary implements TrashLibrary{
 	    if (cleaningTime()) {
 	    	clean();
         }
-        return photosTrash;
+        return new ArrayList<>(photosTrash);
     }
 	    
 	@Override
@@ -62,6 +62,7 @@ public abstract class ATrashLibrary implements TrashLibrary{
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("***** TRASH PHOTO LIBRARY: "+ getNumberOfPhotos() +" photos ****\n");
 		for(IPhoto photo : photosTrash) {
 			sb.append(photo);
 		}

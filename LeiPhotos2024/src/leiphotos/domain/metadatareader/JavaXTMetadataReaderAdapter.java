@@ -13,15 +13,13 @@ public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
 	JavaXTJpegMetadataReader reader;
 
 	public JavaXTMetadataReaderAdapter(File file)  throws JpegMetadataException, FileNotFoundException {
+		if(!file.exists())
+			 throw new FileNotFoundException("Ficheiro não encontrado.");
 		try {
 			this.reader = new JavaXTJpegMetadataReader(file);
 		} catch (Exception e) {
-            if (e instanceof FileNotFoundException) {
-                throw (FileNotFoundException) e;
-            } else {
-                throw new JpegMetadataException("Erro ao ler os metadados da imagem");
-            }
-        }
+            throw new JpegMetadataException("Erro ao ler os metadados da imagem");
+		}
 	}
 
 	@Override
@@ -36,20 +34,14 @@ public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
 
 	@Override
 	public LocalDateTime getDate() {
-		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss", Locale.ENGLISH);
-        LocalDateTime dateTime = LocalDateTime.parse(reader.getDate(), formatter);
-        return dateTime;
-        
-//		LocalDateTime date = null;
-//	    try {
-//	        String dateString = reader.getDate();
-//	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//	        date = LocalDateTime.parse(dateString, formatter);
-//	    } catch (Exception e) {
-//	        System.out.println("Erro ao converter data para LocalDateTime");
-//	    }
-//	    return date;
+		LocalDateTime date = null;
+		try {
+			date = LocalDateTime.parse(reader.getDate(), formatter);
+		} catch (Exception e) {
+	        return date;
+	    }
+        return date;
 	}
 
 	@Override

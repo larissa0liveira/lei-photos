@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import leiphotos.domain.core.MainLibrary;
+import leiphotos.domain.core.PhotoChangedLibraryEvent;
 import leiphotos.domain.core.PhotoFactory;
 import leiphotos.domain.core.TrashLibrary;
 import leiphotos.domain.facade.ILibrariesController;
@@ -28,7 +29,7 @@ public class LibrariesController implements ILibrariesController {
 		try {
 			photo = PhotoFactory.INSTANCE.createPhoto(title, pathToPhotoFile);
 		}catch (Exception e) {
-			System.out.println("Erro ao criar foto - LibrariesController.importPhoto()");
+			System.err.println("File "+title+" not found or could not be open");
 		}
 		if(photo != null && mainLib.addPhoto(photo))
 			return Optional.of(photo);
@@ -52,11 +53,7 @@ public class LibrariesController implements ILibrariesController {
 
 	@Override
 	public void toggleFavourite(Set<IPhoto> selectedPhotos) {
-		Collection<IPhoto> main = mainLib.getPhotos();
-		for(IPhoto photo : main) {
-			if(selectedPhotos.contains(photo))
-				photo.toggleFavourite();
-		}
+		mainLib.toggleFavourites(selectedPhotos);
 	}
 
 	@Override
@@ -67,6 +64,14 @@ public class LibrariesController implements ILibrariesController {
 				matches.add(photo);
 		}
 		return matches;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(mainLib);
+		sb.append(trashLib);
+		return sb.toString();
 	}
 
 }

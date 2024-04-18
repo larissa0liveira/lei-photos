@@ -1,6 +1,7 @@
 package leiphotos.domain.core;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import leiphotos.utils.RegExpMatchable;
 
@@ -45,7 +46,14 @@ public class PhotoMetadata implements RegExpMatchable{
 	
 	@Override
 	public String toString() {
-		return "["+loc+", "+date+", "+cameraInfo+", "+manufacturer+"]";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		
+		String location = loc != null ? loc.toString() : "No Location";
+		String localDate = date != null ? date.format(formatter) : " ";
+		String camera = cameraInfo != null ? cameraInfo.toString() : " ";
+		String manufact = manufacturer != null ? manufacturer.toString() : " ";
+		
+		return "["+location+", "+localDate+", "+camera+", "+manufact+"]";
 	}
 
 

@@ -1,7 +1,11 @@
 package leiphotos.domain.core;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Optional;
 
 import leiphotos.domain.facade.GPSCoordinates;
@@ -66,10 +70,10 @@ public class Photo implements IPhoto, RegExpMatchable {
 
 	@Override
 	public boolean matches(String regexp) {
-	    return 	meta.matches(regexp) ||  
-	    		addedDate.toString().matches(regexp) || 
+	    return  addedDate.toString().matches(regexp) || 
 	    		title.matches(regexp)||
 	    		path.toString().matches(regexp);
+	    		//meta.matches(regexp);
 	}
 	
 //	@Override
@@ -84,10 +88,18 @@ public class Photo implements IPhoto, RegExpMatchable {
 //		else
 //			return false;
 //	};
-//	
+	
 	@Override
 	public String toString() {
-		return "File:"+path+"\nTitle:"+title+" Added:"+addedDate+" Size:"+size()+"\n"+meta+"\n";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator(',');
+		return "File:" + path + "\n" +
+				"Title:" + title + " " +
+				"Added:" + addedDate.format(formatter) + " " +
+				"Size:" + new DecimalFormat("#,###", symbols).format(size()) + "\n" +
+				meta + " "+
+				(favorite ? "FAV\n" : "\n");
 	}
 
 }

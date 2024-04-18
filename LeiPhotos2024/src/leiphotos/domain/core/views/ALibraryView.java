@@ -50,7 +50,8 @@ public abstract class ALibraryView implements ILibraryView{
 	public String toString() {
     	StringBuilder sb = new StringBuilder();
 		for(IPhoto photo : getPhotos()) {
-			sb.append(photo);
+			sb.append(photo.file());
+			sb.append("\n");
 		}
 		return sb.toString();
     }

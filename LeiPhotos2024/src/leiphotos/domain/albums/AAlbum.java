@@ -1,6 +1,7 @@
 package leiphotos.domain.albums;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -34,7 +35,10 @@ public abstract class AAlbum implements IAlbum{
 	
 	@Override
 	public List<IPhoto> getPhotos(){
-		return album;
+		Comparator<IPhoto> comp = (photo1, photo2) -> photo2.title().compareTo(photo1.title());
+		List<IPhoto> copy = new ArrayList<>(album);
+		copy.sort(comp);
+		return copy;
 	}
 
 	@Override
@@ -51,6 +55,17 @@ public abstract class AAlbum implements IAlbum{
 	public void processEvent(LibraryEvent e) {
 		if(e instanceof PhotoDeletedLibraryEvent)
 			album.remove(e.getPhoto());
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("***** Album "+ name +": "+ numberOfPhotos()+" photos *****\n");
+		for(IPhoto photo : album) {
+			sb.append(photo.file());
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 
 }

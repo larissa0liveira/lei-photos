@@ -86,6 +86,15 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 		return null;
 		
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for(Map.Entry<String, IAlbum> entry : catalogo.entrySet()) {
+			sb.append(entry.getValue());
+		}
+		return sb.toString();
+	}
 
 
 	
