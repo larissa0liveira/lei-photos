@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -22,11 +23,12 @@ public class RecentlyDeletedLibrary extends ATrashLibrary{
 	public RecentlyDeletedLibrary() {
 		 super();
 		 deletionTimes = new HashMap<>();
+		 this.lastVerif = LocalDateTime.now();
 	}
 
 	@Override
 	protected void clean() {
-		Collection<IPhoto> toDelete = new TreeSet<>();
+		Collection<IPhoto> toDelete = new HashSet<>();
 		for(Map.Entry<IPhoto, LocalDateTime> entry : deletionTimes.entrySet()) {
 			if(entry.getValue().until(LocalDateTime.now(), TIMEUNIT) >= DURATION)
 				toDelete.add(entry.getKey());
@@ -63,6 +65,9 @@ public class RecentlyDeletedLibrary extends ATrashLibrary{
 		return super.deletePhoto(photo);
 	}
 	
+	public void setLastVerificationTime(LocalDateTime lastVerif) {
+	    this.lastVerif = lastVerif;
+	}
 	
 
 }

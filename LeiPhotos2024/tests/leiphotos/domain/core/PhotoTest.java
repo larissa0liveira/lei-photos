@@ -62,7 +62,7 @@ class PhotoTest {
 		assertEquals(expectedTitle, photo.title());
 		assertEquals(expectedAddedDate, photo.addedDate());
 		assertEquals(meta.getDate(), photo.capturedDate());
-		assertFalse(photo.isFavourite()); // Verifique se o favorito é falso (padrão)
+		assertFalse(photo.isFavourite());
 		assertEquals(expectedFile, photo.file());
 		assertTrue(photo.getPlace().isPresent()); // Verifique se as coordenadas GPS estão presentes
 		assertEquals(loc, photo.getPlace().get()); // Verifique se as coordenadas GPS são as mesmas fornecidas
@@ -83,19 +83,15 @@ class PhotoTest {
 
 		IPhoto photo = new Photo(expectedTitle, expectedAddedDate, meta, expectedFile);
 
-		// Verifique se o favorito inicialmente é falso
+		
 		assertFalse(photo.isFavourite());
-
-		// Altere o estado do favorito usando o método toggleFavourite()
+		
 		photo.toggleFavourite();
-
-		// Verifique se o favorito agora é verdadeiro
+	
 		assertTrue(photo.isFavourite());
 
-		// Altere o estado do favorito novamente usando o método toggleFavourite()
 		photo.toggleFavourite();
 
-		// Verifique se o favorito agora é falso novamente
 		assertFalse(photo.isFavourite());
 	}
 
@@ -108,7 +104,7 @@ class PhotoTest {
 
 		IPhoto photo = new Photo(expectedTitle, expectedAddedDate, null, expectedFile);
 
-		// Verifique se o tamanho retornado pelo método size() é o esperado
+		// Verifica se o tamanho retornado pelo método size() é o esperado
 		assertEquals(expectedSize, photo.size());
 	}
 
@@ -201,13 +197,13 @@ class PhotoTest {
 		IPhoto photo2 = new Photo(expectedTitle, expectedAddedDate, null, file2);
 		IPhoto photo3 = new Photo(expectedTitle, expectedAddedDate, null, file3);
 
-		// Verifique se photo1 é igual a si mesmo (deve retornar true)
+		// Verifica se photo1 é igual a si mesmo (deve retornar true)
 		assertTrue(photo1.equals(photo1));
 
-		// Verifique se photo1 é igual a photo2 (deve retornar false)
+		// Verifica se photo1 é igual a photo2 (deve retornar false)
 		assertFalse(photo1.equals(photo2));
 
-		// Verifique se photo1 é igual a photo3 (deve retornar true, pois os arquivos
+		// Verifica se photo1 é igual a photo3 (deve retornar true, pois os arquivos
 		// são os mesmos)
 		assertTrue(photo1.equals(photo3));
 	}
@@ -229,10 +225,10 @@ class PhotoTest {
 		IPhoto photo1 = new Photo(expectedTitle, expectedAddedDate, null, file1);
         IPhoto photo2 = new Photo(expectedTitle, expectedAddedDate, null, file2);
 
-        // Verifique se o hashCode de photo1 é diferente do hashCode de photo2 (deve retornar true)
+        // Verifica se o hashCode de photo1 é diferente do hashCode de photo2 (deve retornar true)
         assertNotEquals(photo1.hashCode(), photo2.hashCode());
 
-        // Verifique se o hashCode de photo1 é igual ao hashCode de si mesmo (deve retornar true)
+        // Verifica se o hashCode de photo1 é igual ao hashCode de si mesmo (deve retornar true)
         assertEquals(photo1.hashCode(), photo1.hashCode());
 		
 	}

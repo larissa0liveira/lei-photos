@@ -50,7 +50,7 @@ public abstract class ATrashLibrary implements TrashLibrary{
 	
 	@Override
 	public Collection<IPhoto> getMatches(String regexp) {
-		Collection<IPhoto> match = new TreeSet<>();
+		Collection<IPhoto> match = new HashSet<>();
 		 
 		for (IPhoto photo : photosTrash) {
 			if(photo.matches(regexp))
