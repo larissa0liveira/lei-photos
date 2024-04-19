@@ -46,9 +46,9 @@ public interface IAlbum extends Listener<LibraryEvent>{
 	boolean removePhotos(Set<IPhoto> selectedPhotos);
 	
 	/**
-	 * Process the given event 
+	 * Processa o evento dado 
 	 * 
-	 * @param e the event to process
+	 * @param e o evento a processar
 	 */
 	@Override
 	public void processEvent(LibraryEvent e);

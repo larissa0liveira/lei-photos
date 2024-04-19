@@ -14,58 +14,57 @@ import leiphotos.domain.core.PhotoDeletedLibraryEvent;
 import leiphotos.domain.facade.IPhoto;
 import leiphotos.utils.Listener;
 
-public class MainLibraryView extends ALibraryView implements Listener<LibraryEvent>{
-	
+public class MainLibraryView extends ALibraryView implements Listener<LibraryEvent> {
+
 	private List<IPhoto> cache;
-	
+
 	public MainLibraryView(MainLibrary lib, Predicate<IPhoto> p) {
 		super(lib, p);
 		updateCache();
 		lib.registerListener(this);
 	}
-	
+
 	public void updateCache() {
 		cache = super.getPhotos();
-		//library.getPhotos().stream().filter(predicate).sorted(comparator).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public void setComparator(Comparator<IPhoto> c) {
-        super.setComparator(c);
-        cache.sort(c);
-    }
+		super.setComparator(c);
+		cache.sort(c);
+	}
 
-    @Override
+	@Override
 	public int numberOfPhotos() {
-        return this.cache.size();
-    }
+		return this.cache.size();
+	}
 
-    @Override
+	@Override
 	public List<IPhoto> getPhotos() {
-    	 return new ArrayList<>(cache);
-    }
-    
-    @Override
+		return new ArrayList<>(cache);
+	}
+
+	@Override
 	public List<IPhoto> getMatches(String regexp) {
-    	List<IPhoto> matches = new ArrayList<>();
-    	
-    	for(IPhoto photo : cache) {
-    		if(photo.matches(regexp))
-    			matches.add(photo);
-    	}
-    	return matches;
+		List<IPhoto> matches = new ArrayList<>();
+
+		for (IPhoto photo : cache) {
+			if (photo.matches(regexp))
+				matches.add(photo);
+		}
+		return matches;
 	}
 
 	@Override
 	public void processEvent(LibraryEvent e) {
-		if(e instanceof PhotoAddedLibraryEvent) {
-			if(predicate.test(e.getPhoto())) {
+		if (e instanceof PhotoAddedLibraryEvent) {
+			if (predicate.test(e.getPhoto())) {
 				cache.add(e.getPhoto());
 				cache.sort(comparator);
 			}
-		} else if(e instanceof PhotoChangedLibraryEvent) {
+		} else if (e instanceof PhotoChangedLibraryEvent) {
 			updateCache();
-		} else if(e instanceof PhotoDeletedLibraryEvent){
+		} else if (e instanceof PhotoDeletedLibraryEvent) {
 			cache.remove(e.getPhoto());
 			cache.sort(comparator);
 		}

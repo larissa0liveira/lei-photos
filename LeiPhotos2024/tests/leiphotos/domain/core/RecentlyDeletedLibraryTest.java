@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +15,8 @@ import leiphotos.domain.facade.IPhoto;
 
 class RecentlyDeletedLibraryTest {
 
-	private static final int SECONDS_IN_TRASH = 15; // CHANGE ME
-	private static final int SECONDS_TO_CHECK = 5; // CHANGE ME
+	private static final int SECONDS_IN_TRASH = 15; 
+	private static final int SECONDS_TO_CHECK = 5; 
 
 	private RecentlyDeletedLibrary library;
 
@@ -42,9 +40,8 @@ class RecentlyDeletedLibraryTest {
 
 		assertTrue(library.addPhoto(photo));
 
-		assertFalse(library.addPhoto(photo)); // adicionar a mesma foto novamente
+		assertFalse(library.addPhoto(photo)); 
 
-		// Verifica se a foto está presente apenas uma vez na lixeira
 		assertEquals(1, library.getNumberOfPhotos());
 
 	}
@@ -129,8 +126,8 @@ class RecentlyDeletedLibraryTest {
 		library.addPhoto(photo1);
 		library.addPhoto(photo2);
 		Collection<IPhoto> photos = library.getPhotos();
-		
-		assertFalse(photos.isEmpty());
+
+		assertEquals(2, photos.size());
 	}
 
 	@Test
@@ -140,7 +137,11 @@ class RecentlyDeletedLibraryTest {
 		library.addPhoto(photo1);
 		library.addPhoto(photo2);
 		Thread.sleep(SECONDS_TO_CHECK * 1000);
+
 		Collection<IPhoto> photos = library.getPhotos();
+
+		assertEquals(2, photos.size());
+
 	}
 
 }

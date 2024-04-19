@@ -8,17 +8,17 @@ import java.util.Locale;
 
 import leiphotos.services.JavaXTJpegMetadataReader;
 
-public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
-	
+public class JavaXTMetadataReaderAdapter implements JpegMetadataReader {
+
 	JavaXTJpegMetadataReader reader;
 
-	public JavaXTMetadataReaderAdapter(File file)  throws JpegMetadataException, FileNotFoundException {
-		if(!file.exists())
-			 throw new FileNotFoundException("Ficheiro não encontrado.");
+	public JavaXTMetadataReaderAdapter(File file) throws JpegMetadataException, FileNotFoundException {
+		if (!file.exists())
+			throw new FileNotFoundException("Ficheiro não encontrado.");
 		try {
 			this.reader = new JavaXTJpegMetadataReader(file);
 		} catch (Exception e) {
-            throw new JpegMetadataException("Erro ao ler os metadados da imagem");
+			throw new JpegMetadataException("Erro ao ler os metadados da imagem");
 		}
 	}
 
@@ -39,9 +39,9 @@ public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
 		try {
 			date = LocalDateTime.parse(reader.getDate(), formatter);
 		} catch (Exception e) {
-	        return date;
-	    }
-        return date;
+			return date;
+		}
+		return date;
 	}
 
 	@Override
@@ -53,6 +53,5 @@ public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
 	public double[] getGpsLocation() {
 		return reader.getGPS();
 	}
-
 
 }

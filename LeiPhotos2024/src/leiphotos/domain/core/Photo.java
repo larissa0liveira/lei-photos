@@ -14,7 +14,7 @@ import leiphotos.domain.facade.IPhoto;
 import leiphotos.utils.RegExpMatchable;
 
 public class Photo implements IPhoto, RegExpMatchable {
-	
+
 	private String title;
 	private LocalDateTime addedDate;
 	private PhotoMetadata meta;
@@ -28,7 +28,7 @@ public class Photo implements IPhoto, RegExpMatchable {
 		this.path = pathToFile;
 		this.favorite = false;
 	}
-	
+
 	@Override
 	public String title() {
 		return this.title;
@@ -54,7 +54,7 @@ public class Photo implements IPhoto, RegExpMatchable {
 		this.favorite = !this.favorite;
 	}
 
-	@Override   
+	@Override
 	public Optional<? extends GPSCoordinates> getPlace() {
 		return Optional.ofNullable(this.meta.getLoc());
 	}
@@ -71,36 +71,29 @@ public class Photo implements IPhoto, RegExpMatchable {
 
 	@Override
 	public boolean matches(String regexp) {
-	    return  addedDate.toString().matches(regexp) || 
-	    		title.matches(regexp)||
-	    		path.toString().matches(regexp);
+		return addedDate.toString().matches(regexp) || title.matches(regexp) || path.toString().matches(regexp);
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
-			if (this == other) {
-		        return true; 
-		    }
-		    if (other == null || getClass() != other.getClass()) {
-		        return false; 
-		    }
-		    Photo photo = (Photo) other; 
+		if (this == other) {
+			return true;
+		}
+		if (other == null || getClass() != other.getClass()) {
+			return false;
+		}
+		Photo photo = (Photo) other;
 
-		    return Objects.equals(path, photo.path);
+		return Objects.equals(path, photo.path);
 	}
 
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
-        symbols.setGroupingSeparator(',');
-		return "File:" + path + "\n" +
-				"Title:" + title + " " +
-				"Added:" + addedDate.format(formatter) + " " +
-				"Size:" + new DecimalFormat("#,###", symbols).format(size()) + "\n" +
-				meta + " "+
-				(favorite ? "FAV\n" : "\n");
+		symbols.setGroupingSeparator(',');
+		return "File:" + path + "\n" + "Title:" + title + " " + "Added:" + addedDate.format(formatter) + " " + "Size:"
+				+ new DecimalFormat("#,###", symbols).format(size()) + "\n" + meta + " " + (favorite ? "FAV\n" : "\n");
 	}
-
 
 }

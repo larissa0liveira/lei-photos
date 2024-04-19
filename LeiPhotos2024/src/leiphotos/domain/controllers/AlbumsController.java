@@ -11,9 +11,8 @@ import leiphotos.domain.albums.IAlbumsCatalog;
 import leiphotos.domain.facade.IAlbumsController;
 import leiphotos.domain.facade.IPhoto;
 
-
 public class AlbumsController implements IAlbumsController {
-	
+
 	private IAlbumsCatalog albumCatalog;
 	private IAlbum currentAlbum;
 
@@ -21,43 +20,43 @@ public class AlbumsController implements IAlbumsController {
 		this.albumCatalog = albumsCatalog;
 		this.currentAlbum = null;
 	}
-	
-	@Override 
+
+	@Override
 	public boolean createAlbum(String name) {
 		return albumCatalog.createAlbum(name);
 	}
 
 	@Override
 	public void removeAlbum() {
-		if(currentAlbum != null) {
+		if (currentAlbum != null) {
 			albumCatalog.deleteAlbum(currentAlbum.getName());
 		}
 	}
 
 	@Override
 	public void selectAlbum(String name) {
-		if(albumCatalog.containsAlbum(name)) {
+		if (albumCatalog.containsAlbum(name)) {
 			currentAlbum = albumCatalog.getAlbum(name);
 		}
 	}
 
 	@Override
 	public void addPhotos(Set<IPhoto> selectedPhotos) {
-		if(currentAlbum != null) {
+		if (currentAlbum != null) {
 			currentAlbum.addPhotos(selectedPhotos);
 		}
 	}
 
 	@Override
 	public void removePhotos(Set<IPhoto> selectedPhotos) {
-		if(currentAlbum != null) {
+		if (currentAlbum != null) {
 			currentAlbum.removePhotos(selectedPhotos);
 		}
 	}
 
 	@Override
 	public List<IPhoto> getPhotos() {
-		if(currentAlbum != null) {
+		if (currentAlbum != null) {
 			return currentAlbum.getPhotos();
 		}
 		return new ArrayList<>();
@@ -65,8 +64,8 @@ public class AlbumsController implements IAlbumsController {
 
 	@Override
 	public Optional<String> getSelectedAlbum() {
-		if(currentAlbum != null) {
-			return Optional.of(currentAlbum.getName());	
+		if (currentAlbum != null) {
+			return Optional.of(currentAlbum.getName());
 		}
 		return Optional.empty();
 	}
@@ -88,7 +87,5 @@ public class AlbumsController implements IAlbumsController {
 		sb.append(albumCatalog);
 		return sb.toString();
 	}
-
-
 
 }

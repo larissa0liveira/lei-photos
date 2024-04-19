@@ -1,9 +1,9 @@
 package leiphotos.domain.core;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
-import java.util.TreeSet;
 
 import leiphotos.domain.facade.IPhoto;
 
@@ -71,7 +71,3 @@ public abstract class ATrashLibrary implements TrashLibrary{
 		return sb.toString();
 	}
 }
-	
-	
-	
-
