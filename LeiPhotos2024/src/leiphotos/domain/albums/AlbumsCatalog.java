@@ -1,6 +1,7 @@
 package leiphotos.domain.albums;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 
 	public AlbumsCatalog(MainLibrary mainLib) {
 		this.library = mainLib;
-		this.catalogo = new TreeMap<>();
+		this.catalogo = new HashMap<>();
 	}
 
 	@Override

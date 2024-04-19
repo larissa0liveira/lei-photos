@@ -35,7 +35,10 @@ public abstract class AAlbum implements IAlbum{
 	
 	@Override
 	public List<IPhoto> getPhotos(){
-		return new ArrayList<>(album);
+		List<IPhoto> sortedAlbum = new ArrayList<>(album);
+		Comparator<IPhoto> comp = (photo1, photo2) -> photo2.title().compareTo(photo1.title());
+		sortedAlbum.sort(comp);
+		return sortedAlbum;
 	}
 
 	@Override
@@ -58,7 +61,7 @@ public abstract class AAlbum implements IAlbum{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("***** Album "+ name +": "+ numberOfPhotos()+" photos *****\n");
-		for(IPhoto photo : album) {
+		for(IPhoto photo : getPhotos()) {
 			sb.append(photo.file());
 			sb.append("\n");
 		}
