@@ -40,7 +40,9 @@ public abstract class ATrashLibrary implements TrashLibrary{
 	
 	@Override
 	public boolean addPhoto(IPhoto photo) {
-		return photosTrash.add(photo);
+		if(!photosTrash.contains(photo))
+			return photosTrash.add(photo);
+		return false;
 	}
 	
 	@Override

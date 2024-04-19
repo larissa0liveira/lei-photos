@@ -37,7 +37,6 @@ public class RecentlyDeletedLibrary extends ATrashLibrary{
 			photosTrash.remove(deletingPhoto);
 			deletionTimes.remove(deletingPhoto);
 		}
-		
 	}
 
 	@Override
@@ -64,10 +63,5 @@ public class RecentlyDeletedLibrary extends ATrashLibrary{
 		deletionTimes.remove(photo);
 		return super.deletePhoto(photo);
 	}
-	
-	public void setLastVerificationTime(LocalDateTime lastVerif) {
-	    this.lastVerif = lastVerif;
-	}
-	
 
 }

@@ -87,7 +87,6 @@ public class Photo implements IPhoto, RegExpMatchable {
 		    Photo photo = (Photo) other; 
 
 		    return Objects.equals(path, photo.path);
-		
 	}
 
 	@Override

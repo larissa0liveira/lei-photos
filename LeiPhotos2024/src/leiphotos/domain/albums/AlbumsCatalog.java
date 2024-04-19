@@ -76,16 +76,11 @@ public class AlbumsCatalog implements IAlbumsCatalog {
 	}
 	
 	@Override
-	public MainLibrary getLibrary() {
-		return this.library;
-	}
-	@Override
 	public IAlbum getAlbum(String name) {
 		if(this.catalogo.containsKey(name)) {
 			return this.catalogo.get(name);
 		}
 		return null;
-		
 	}
 	
 	@Override

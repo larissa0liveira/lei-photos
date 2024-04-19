@@ -72,14 +72,6 @@ public interface IAlbumsCatalog {
     Set<String> getAlbumsNames();
     
     /**
-     *Retorna a biblioteca principal associada a este catálogo de álbuns.
-     * A biblioteca principal contém todas as fotos e recursos relacionados ao sistema.
-     * 
-     * @return a biblioteca principal associada a este catálogo
-     */
-    MainLibrary getLibrary();
-    
-    /**
      * Retorna o álbum com o nome especificado.
      * Se não houver um álbum com o nome fornecido, retorna null. 
      * 

@@ -18,15 +18,10 @@ public class ViewsCatalog implements IViewsCatalog {
 
 	public ViewsCatalog(MainLibrary mainLib, TrashLibrary trashLib) {
 		this.views = new TreeMap<>();
-		views.put(ViewsType.ALL_MAIN, (new MainLibraryView(mainLib, photo -> true)));
-		views.put(ViewsType.ALL_TRASH, (new TrashLibraryView(trashLib, photo -> true)));
+		views.put(ViewsType.ALL_MAIN, new MainLibraryView(mainLib, photo -> true));
+		views.put(ViewsType.ALL_TRASH, new TrashLibraryView(trashLib, photo -> true));
 		views.put(ViewsType.FAVOURITES_MAIN, new MainLibraryView(mainLib, photo -> photo.isFavourite()));
-		Predicate<IPhoto> isRecent = photo -> {
-			if(photo.capturedDate() != null)
-				return photo.capturedDate().until(LocalDateTime.now(), ChronoUnit.MONTHS) <= 12;
-			else
-				return false;
-		};
+		Predicate<IPhoto> isRecent = photo -> photo.capturedDate().until(LocalDateTime.now(), ChronoUnit.MONTHS) <= 12;
 		views.put(ViewsType.MOST_RECENT, new MainLibraryView(mainLib, isRecent));
 	}
 
