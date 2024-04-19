@@ -35,7 +35,7 @@ public class JavaXTMetadataReaderAdapter implements JpegMetadataReader{
 	@Override
 	public LocalDateTime getDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss", Locale.ENGLISH);
-		LocalDateTime date = null;
+		LocalDateTime date = LocalDateTime.of(1970, 1, 1, 0, 0);
 		try {
 			date = LocalDateTime.parse(reader.getDate(), formatter);
 		} catch (Exception e) {

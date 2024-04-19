@@ -129,19 +129,8 @@ class RecentlyDeletedLibraryTest {
 		library.addPhoto(photo1);
 		library.addPhoto(photo2);
 		Collection<IPhoto> photos = library.getPhotos();
-
-	/*	LocalDateTime referenceDateTime = LocalDateTime.now();
-
-		// Defina a data e hora de referência para a hora em que as fotos foram adicionadas
-		library.setLastVerificationTime(referenceDateTime);
-
-		// Avance o tempo por um período menor do que o intervalo de tempo especificado
-		LocalDateTime finalDateTime = referenceDateTime.plus(SECONDS_IN_TRASH - 1, ChronoUnit.SECONDS);
-		library.setLastVerificationTime(finalDateTime);
-
-		// Verifique se as fotos ainda estão presentes na lixeira
-		assertFalse(photos.isEmpty());*/
-
+		
+		assertFalse(photos.isEmpty());
 	}
 
 	@Test
@@ -152,10 +141,6 @@ class RecentlyDeletedLibraryTest {
 		library.addPhoto(photo2);
 		Thread.sleep(SECONDS_TO_CHECK * 1000);
 		Collection<IPhoto> photos = library.getPhotos();
-
-       //completar
 	}
-
-	// COMPLETE ME
 
 }
